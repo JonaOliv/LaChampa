@@ -103,8 +103,17 @@ db.restaurantes.insert(geojsonDoc);
 
 
 var usuarios = {
- "usuario":"",
+ "usuario":"alucard",
  "correo":"",
  "contrasenia":"",
- "favoritos":""
+ "favoritos":[],
+ "votados":[8]
 };
+var usuarios = {
+ "usuario":"hellsing",
+ "correo":"hellsing@noche.sangre",
+ "contrasenia":"",
+ "favoritos":[],
+ "votados":[8]
+};
+db.usuarios.insert(usuarios);

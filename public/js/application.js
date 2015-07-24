@@ -90,7 +90,7 @@ $(function() {
 	              "success":function(jsonDoc,status,jqXHR){
 										$( "#nombreLocal" ).text(jsonDoc.restaurantes[0].properties.nombre);
 										$( "#descripcion" ).text(jsonDoc.restaurantes[0].properties.popupContent);
-										$( "#puntos" ).text(jsonDoc.restaurantes[0].properties.rating);
+										$( "#puntos" ).text("Likes dados: "+jsonDoc.restaurantes[0].properties.rating);
 										$("#preciosLocales li").remove();
 
 										for (i = 0; i < jsonDoc.restaurantes[0].properties.menu.length; i++) {
@@ -107,8 +107,21 @@ $(function() {
 	          }
 	  );//ajax
 		$("#like").on('click', function(e){
-			console.log("soy like");
-		});//$("#like").on('click'
+			$.ajax("panel/Voto/"+vDocnum[number],
+		          {
+		              "method":"GET",
+		              "data":{},
+		              "dataType":"json",
+		              "success":function(jsonDoc,status,jqXHR){
+
+		              },
+		              "error":function(jqXHR,status, errorMsg){
+											console.log("error");
+		                  console.log(errorMsg);
+		              }
+		          }
+		  );//ajax
+		});//$("#like").on('click'172.16.217.32
 	}
 
 	function setCatMariscos(){
