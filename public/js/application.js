@@ -252,3 +252,97 @@ $(function() {
 		info.addClass("error").text(msg);
 	}
 });
+
+
+/*Este es su especialidad y los tipos son:
+        mariscos,carneAsada,baleadas,
+        chuletas,comidaChina,hamburguesas,hotdogs,pizza, pollo, sopa*/
+
+//Agregar iconos
+var mariscos = L.icon({
+    iconUrl: '../assets/Pescado.svg',
+
+    iconSize:     [38, 95], // size of the icon
+    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+});
+
+var carneAsada = L.icon({
+    iconUrl: '../assets/Carne Asada.svg',
+
+    iconSize:     [38, 95], // size of the icon
+    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+});
+
+var baleadas = L.icon({
+    iconUrl: '../assets/Baleada.svg',
+
+    iconSize:     [38, 95], // size of the icon
+    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+});
+
+var chuletas = L.icon({
+    iconUrl: '../assets/Chuletas.svg',
+
+    iconSize:     [38, 95], // size of the icon
+    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+});
+
+var comidaChina = L.icon({
+    iconUrl: '../assets/Comida China.svg',
+
+    iconSize:     [38, 95], // size of the icon
+    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+});
+
+var hamburguesas = L.icon({
+    iconUrl: '../assets/Hamburguesa.svg',
+
+    iconSize:     [38, 95], // size of the icon
+    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+});
+
+var hotdogs = L.icon({
+    iconUrl: '../assets/Hot Dog.svg',
+
+    iconSize:     [38, 95], // size of the icon
+    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+});
+
+var pizza = L.icon({
+    iconUrl: '../assets/Pizza.svg',
+
+    iconSize:     [38, 95], // size of the icon
+    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+});
+
+var pollo = L.icon({
+    iconUrl: '../assets/Pollo.svg',
+
+    iconSize:     [38, 95], // size of the icon
+    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+});
+
+var sopa = L.icon({
+    iconUrl: '../assets/Sopa.svg',
+
+    iconSize:     [38, 95], // size of the icon
+    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+});
+
+var ubicacion = L.icon({
+    iconUrl: '../assets/ubicacion.svg',
+
+    iconSize:     [38, 95], // size of the icon
+    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+});
