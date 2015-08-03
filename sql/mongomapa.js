@@ -1,19 +1,19 @@
 
 var geojsonDoc = {
-    "docnum":15,
+    "docnum":50,
     "type": "Feature",
     "properties": {
-        "nombre": "Cafeteria Vieja",
-        "amenity": "centroFoodcourt",
+        "nombre": "Neptuno esta gordo",
+        "amenity": "local",
         "lugarAsociado":0,
-        "popupContent": "",
-	      "tipoComida":"",
+        "popupContent": "Viva el mar!",
+	      "tipoComida":"mariscos",
         "rating":0,
         "menu":[]
     },
     "geometry": {
         "type": "Point",
-        "coordinates": [14.053740, -87.249063]
+        "coordinates": [14.085630, -87.216547]
     }
 };
 db.restaurantes.insert(geojsonDoc);
