@@ -1,10 +1,19 @@
 $(function() {
+  function esEmail(valor){
+    re=/^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,3})$/
+    if(!re.exec(valor))    {
+        return false;
+    }else{
+        return true;
+    }
+  }
+
   $("#formMapa").hide();
   $("#btnRegistro").on('click', function(e){
-    var usuario=$("#user").val();
-    var password=$("#pswd").val();
-    var cpassword=$("#cpswd").val();
-    var correo=$("#correo").val();
+    var usuario=$("#userR").val();
+    var password=$("#pswdR").val();
+    var cpassword=$("#cpswdR").val();
+    var correo=$("#correoR").val();
 
     var ningunError=true;
     var mensaje=[];
@@ -24,6 +33,9 @@ $(function() {
     if( correo == null || correo.length == 0 || /^\s+$/.test(correo) ) {
       ningunError=false;
       mensaje.push("Escriba un correo electrónico\n");
+    }else if (!esEmail(correo)) {
+      ningunError=false;
+      mensaje.push("Escribio un formato de correo electrónico inválido\n");
     }
     if (!ningunError) {
       //$("#mensaje").text(mensaje);

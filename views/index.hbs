@@ -8,9 +8,19 @@
 </br>
 <input type="password" name="password" placeholder="contraseña" id="pswd" value="" autocomplete="off">
 </br></br>
-<button type="submit" id="login" class="ui-shadow ui-btn ui-corner-all ">Iniciar Sesion</button>
+<button type="submit" id="login" class="ui-shadow ui-btn ui-corner-all ">Iniciar Sesión</button>
+</br>
+<form action="registro">
+  <button type="submit" id="registro" class="ui-shadow ui-btn ui-corner-all ">Registrarse</button>
+</form>
 </div>
-
+<form action="mapa" method="get" id="formMap">
+    <input type="submit" value="Ir a mapa"
+        id="btnMap" name="btnMap" class="ui-shadow ui-btn ui-corner-all" />
+</form>
+<div data-role="popup" id="popupMensaje">
+<p id="message"></p>
+</div>
 <div data-role="footer" data-position="fixed" data-theme="b">
       <h2>Todos Los Derechos Reservados 2015</h2>
 </div>
