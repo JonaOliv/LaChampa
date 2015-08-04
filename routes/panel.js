@@ -43,8 +43,8 @@ function panel(db){
       }); // find toarray
     });
 
-    panelRouter.get("/Voto/:voto",function(req,res){
-      var correo="hellsing@noche.sangre";
+    panelRouter.get("/Voto/:voto/:correo",function(req,res){
+      var correo=req.params.correo;
       var usuarios = db.collection("usuarios");
       var query = {$and:[{"correo":{$eq:correo}},{"votados":{$eq:parseInt(req.params.voto)}}]};
       var proy = {"_id":0,"votados":1};

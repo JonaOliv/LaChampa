@@ -6,8 +6,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 
-var users = require('./routes/users');
-
 function returnApp(db){
     var app = express();
 
@@ -23,9 +21,10 @@ function returnApp(db){
     app.use(cookieParser());
     app.use(require('less-middleware')(path.join(__dirname, 'public')));
     app.use(express.static(path.join(__dirname, 'public')));
-    var routes = require('./routes/index')(db);
+    var routes = require('./routes/index.js')(db);
     app.use('/', routes);
-    app.use('/users', users);
+    var registro = require('./routes/registro.js')(db);
+    app.use('/registro', registro);
 
     //para llamar a los modulos se usa la funcion require
     // la uri del módulo y debe especificar

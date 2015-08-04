@@ -5,7 +5,7 @@ restaurante.
 
 2. Posee filtros para mostrar los restaurantes por categorias como ser mariscos.
 
-3. Permite un rating del mejor restaurante de un tipo.
+3. Permite un rating del mejor restaurante en base a puntos.
 
 Para iniciarlo debes escribir: ```node ./bin/www```
 

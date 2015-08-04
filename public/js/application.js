@@ -1,5 +1,8 @@
 $(function() {
 	// variables para los filtros
+	console.log("sessionStorage.correo");
+	console.log(sessionStorage.correo);
+	//$('#map').trigger("create");
 	var carneAsada = new L.LayerGroup();
 	var mariscos = new L.LayerGroup();
 	var baleadas = new L.LayerGroup();
@@ -221,7 +224,7 @@ $(function() {
 	          }
 	  );//ajax
 		$("#like").on('click', function(e){
-			$.ajax("panel/Voto/"+vDocnum[number],
+			$.ajax("panel/Voto/"+vDocnum[number]+"/"+sessionStorage.correo,
 		          {
 		              "method":"GET",
 		              "data":{},
@@ -314,7 +317,7 @@ $(function() {
 		$("#like").on('click', function(e){
 			var optionSelected = $('#cmbFoodcourt').find('option:selected');
 			var optValueSelected = optionSelected.val();
-			$.ajax("panel/Voto/"+optValueSelected,
+			$.ajax("panel/Voto/"+optValueSelected+"/"+sessionStorage.correo,
 		          {
 		              "method":"GET",
 		              "data":{},
