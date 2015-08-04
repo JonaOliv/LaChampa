@@ -32,6 +32,7 @@ $(function() {
  //---------------------------------------
  //variables para el panel
  var vDocnum = [];
+ var vCombobox = [];
  //---------------
 	var map;
 
@@ -171,7 +172,7 @@ $(function() {
     	alert(e.latlng);
 			console.log("Hola soy click");
 		});*/
-		userMarker.bindPopup("Usted esta aqui").openPopup();
+		userMarker.bindPopup("<b>Usted esta aqui</b>").openPopup();
 		//funcion que pone los restaurantes en el mapa por categorias
     setMarker();
 	}
@@ -180,35 +181,16 @@ $(function() {
 		setCatMariscos();
 		setCatCarneAsada();
 		setCatBaleadas();
+		setCatChuletas();
+		setCatComidaChina();
+		setCatHamburguesa();
+		setCatHotdogs();
+		setCatPizza();
+		setCatPollo();
+		setCatSopa();
 		setCatFoodCourts();
 		//aqui agregamos la caja para los filtros
 		L.control.layers(baseLayers,overlays).addTo(map);
-	}
-
-	function limpiarPanel() {
-		// body...
-	}
-
-	function cargarPanel() {
-		$("#mypanel").append("<p id='descripcion'>g</p><p id='puntos'>g</p><h3>Menu</h3>");
-		$("#mypanel").append("<ul data-role='listview' data-inset='true' data-theme='c' id='preciosLocales' class=''></ul>");
-		$("#mypanel").append("<a href='#mypanel' id='back' data-theme='a' data-role='button'  data-mini='true' data-corners='true' "+
-		"data-shadow='true' data-iconshadow='true' data-wrapperels='span'"+
-		" class='ui-btn ui-shadow ui-btn-corner-all ui-mini ui-btn-icon-left'>"+
-		"<span class='ui-btn-inner ui-btn-corner-all'>"+
-		"<span class='ui-btn-text'>Regresar</span>"+
-		"</span></a>");
-		$("#mypanel").append("<a href='#mypanel' id='like' data-theme='a'"+
-		" data-role='button'  data-mini='true' data-corners='true'"+
-		" data-shadow='true' data-iconshadow='true' data-wrapperels='span' "+
-		"class='ui-btn ui-shadow ui-btn-corner-all ui-mini ui-btn-icon-left'>"+
-		"<span class='ui-btn-inner ui-btn-corner-all'>"+
-		"<span class='ui-btn-text'>Dar Punto</span>"+
-		"</span></a>");
-	}
-
-	function cargarNoFoodCourt() {
-		$("#mypanel").append("<h2 id='nombreLocal'>Panel Header</h2>");
 	}
 
 	function setPanelNoFoodCourt(number){
@@ -219,11 +201,12 @@ $(function() {
 	              "data":{},
 	              "dataType":"json",
 	              "success":function(jsonDoc,status,jqXHR){
-										$( "#nombreLocal" ).text(jsonDoc.restaurantes[0].properties.nombre);
+										$( "#nombreLocal" ).text(jsonDoc.restaurantes[0].properties.nombre);//Puesto de Venta
+										$("#divFoodcourt").hide();
+										//$("#divFoodcourt").show();
 										$( "#descripcion" ).text(jsonDoc.restaurantes[0].properties.popupContent);
 										$( "#puntos" ).text("Likes dados: "+jsonDoc.restaurantes[0].properties.rating);
-										$("#preciosLocales li").remove();
-
+										$("#preciosLocales").empty();
 										for (i = 0; i < jsonDoc.restaurantes[0].properties.menu.length; i++) {
 											$("#preciosLocales").append("<li class='ui-li' data-theme='c'><span>"
 											+jsonDoc.restaurantes[0].properties.menu[i].nombreComida+" "
@@ -255,29 +238,66 @@ $(function() {
 		});//$("#like").on('click'172.16.217.32
 	}
 
-	function cargarFoodCourt(data){
-		$("#mypanel").append("<div class='ui-field-contain'>"+
-		"<label for='select-native-1'>Puesto de Venta</label>"+
-		"<select name='select-native-1' id='foodcourt'>"+
-		"</select></div>");
-		/*
-		<option value='' selected='selected'>The 1st Option</option>
-		        <option value=''>The 2nd Option</option>
-		*/
-	}
-
-	function setPanelFoodCourt(number){
-		$.ajax("panel/"+vDocnum[number],
+	function comboboxPanel(selected){
+		$.ajax("panel/FoodCourt/Puesto/"+vDocnum[number],
 	          {
 	              "method":"GET",
 	              "data":{},
 	              "dataType":"json",
 	              "success":function(jsonDoc,status,jqXHR){
-										$( "#nombreLocal" ).text(jsonDoc.restaurantes[0].properties.nombre);
+									$( "#descripcion" ).text(jsonDoc.restaurantes[0].properties.popupContent);
+									$( "#puntos" ).text("Likes dados: "+jsonDoc.restaurantes[0].properties.rating);
+									//menu
+									$("#preciosLocales li").remove();
+									for (i = 0; i < jsonDoc.restaurantes[0].properties.menu.length; i++) {
+										$("#preciosLocales").append("<li class='ui-li' data-theme='c'><span>"
+										+jsonDoc.restaurantes[0].properties.menu[i].nombreComida+" "
+										+jsonDoc.restaurantes[0].properties.menu[i].precio
+										 +"</span></li>");
+									}
+	              },
+	              "error":function(jqXHR,status, errorMsg){
+										console.log("error");
+	                  console.log(errorMsg);
+	              }
+	          }
+	  );//ajax
+	}
+
+	function setPanelFoodCourt(number){
+		$.ajax("panel/FoodCourt/"+vDocnum[number],
+	          {
+	              "method":"GET",
+	              "data":{},
+	              "dataType":"json",
+	              "success":function(jsonDoc,status,jqXHR){
+										$( "#nombreLocal" ).text("Puesto de Venta");
+										$("#divFoodcourt").show();
+
 										$( "#descripcion" ).text(jsonDoc.restaurantes[0].properties.popupContent);
 										$( "#puntos" ).text("Likes dados: "+jsonDoc.restaurantes[0].properties.rating);
-										$("#preciosLocales li").remove();
+										//combobox
+										$("#cmbFoodcourt").empty();
+										$("#cmbFoodcourt").append("<option value='"+
+										jsonDoc.restaurantes[0].docnum+"' selected='selected'>"+
+										jsonDoc.restaurantes[0].properties.nombre+
+										 "</option>");
 
+										for (i = 1; i < jsonDoc.restaurantes[0].properties.menu.length; i++) {
+											 $("#cmbFoodcourt").append("<option value='"+
+	 										jsonDoc.restaurantes[i].docnum+"'>"+
+	 										jsonDoc.restaurantes[i].properties.nombre+
+	 										 "</option>");
+										}
+										//cuando cambie el combobox
+										$('#cmbFoodcourt').change(function () {
+										  var optionSelected = $('#cmbFoodcourt').find('option:selected');
+										  var optValueSelected = optionSelected.val();
+											comboboxPanel(optValueSelected);
+										});
+										//------------------------------------------
+										//menu
+										$("#preciosLocales li").remove();
 										for (i = 0; i < jsonDoc.restaurantes[0].properties.menu.length; i++) {
 											$("#preciosLocales").append("<li class='ui-li' data-theme='c'><span>"
 											+jsonDoc.restaurantes[0].properties.menu[i].nombreComida+" "
@@ -291,6 +311,24 @@ $(function() {
 	              }
 	          }
 	  );//ajax
+		$("#like").on('click', function(e){
+			var optionSelected = $('#cmbFoodcourt').find('option:selected');
+			var optValueSelected = optionSelected.val();
+			$.ajax("panel/Voto/"+optValueSelected,
+		          {
+		              "method":"GET",
+		              "data":{},
+		              "dataType":"json",
+		              "success":function(jsonDoc,status,jqXHR){
+
+		              },
+		              "error":function(jqXHR,status, errorMsg){
+											console.log("error");
+		                  console.log(errorMsg);
+		              }
+		          }
+		  );//ajax
+		});//$("#like").on('click'
 	}
 
 	function setCatMariscos(){
@@ -654,6 +692,19 @@ $(function() {
 											var marker = L.marker([jsonDoc.restaurantes[i].geometry.coordinates[0],
 								        jsonDoc.restaurantes[i].geometry.coordinates[1]], { icon: yellowIcon }).addTo(foodcourt);
 								      marker.bindPopup(jsonDoc.restaurantes[i].properties.popupContent);
+
+											var cadena = jsonDoc.restaurantes[i].geometry.coordinates[0]+"_"+jsonDoc.restaurantes[i].geometry.coordinates[1];
+											cadena=cadena.replace(/\-|\.|\_/gi,"");
+											vDocnum[cadena]=jsonDoc.restaurantes[i].docnum;
+
+											marker.on('click', function(e) {
+												$( "#mypanel" ).panel( "open" , {} );
+
+												var cadena = e.latlng.lat+"_"+e.latlng.lng;
+												cadena=cadena.replace(/\-|\.|\_/gi,"");
+												setPanelFoodCourt(cadena);
+
+											});//marker.on click
 										}
 
 	              },

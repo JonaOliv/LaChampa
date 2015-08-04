@@ -19,6 +19,30 @@ function panel(db){
       }); // find toarray
     });
 
+    panelRouter.get("panel/FoodCourt/:docnum",function(req,res){
+      var query = {"lugarAsociado":{$eq:parseInt(req.params.docnum)}};
+      var proy = {"_id":0,"properties":1};
+      restaurantes.find(query,proy).toArray(function(err, vRestaurantes){
+          if(err){
+              res.status(500).json({"error":err});
+          }else{
+              res.status(200).json({"restaurantes":vRestaurantes});
+          }
+      }); // find toarray
+    });
+
+    panelRouter.get("panel/FoodCourt/Puesto/:docnum",function(req,res){
+      var query = {"docnum":{$eq:parseInt(req.params.docnum)}};
+      var proy = {"_id":0,"properties":1};
+      restaurantes.find(query,proy).toArray(function(err, vRestaurantes){
+          if(err){
+              res.status(500).json({"error":err});
+          }else{
+              res.status(200).json({"restaurantes":vRestaurantes});
+          }
+      }); // find toarray
+    });
+
     panelRouter.get("/Voto/:voto",function(req,res){
       var correo="hellsing@noche.sangre";
       var usuarios = db.collection("usuarios");
