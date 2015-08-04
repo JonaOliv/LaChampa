@@ -2,15 +2,30 @@ $(function() {
 	// variables para los filtros
 	var carneAsada = new L.LayerGroup();
 	var mariscos = new L.LayerGroup();
-	var baleada = new L.LayerGroup();
+	var baleadas = new L.LayerGroup();
 	var foodcourt = new L.LayerGroup();
-	var vLayers = [carneAsada,mariscos,baleada,foodcourt];
+	var chuletas = new L.LayerGroup();
+	var comidaChina = new L.LayerGroup();
+	var hamburguesas = new L.LayerGroup();
+	var hotdogs = new L.LayerGroup();
+	var pizza = new L.LayerGroup();
+	var pollo = new L.LayerGroup();
+	var sopa = new L.LayerGroup();
+	var vLayers = [carneAsada,mariscos,baleadas,foodcourt,chuletas,comidaChina,
+		hamburguesas,hotdogs,pizza,pollo,sopa];
 
 	var baseLayers={};
 	var overlays = {
 			"Mariscos": mariscos,
 			"Carnes Asadas": carneAsada,
-			"Baleadas": baleada,
+			"Baleadas": baleadas,
+			"Chuletas": chuletas,
+			"Comida China": comidaChina,
+			"Hamburguesas": hamburguesas,
+			"HotDogs": hotdogs,
+			"Pizza": pizza,
+			"Pollo": pollo,
+			"Sopas": sopa,
 			"FoodCourts": foodcourt
 		};
 		//tambien uso la funcion setMarker y lo que contiene
@@ -34,6 +49,96 @@ $(function() {
 	var redIcon = new tinyIcon({ iconUrl: "../assets/marker-red.png" });
 	var yellowIcon = new tinyIcon({ iconUrl: "../assets/marker-yellow.png" });
 
+
+	var mariscosIcon = L.icon({
+	    iconUrl: '../assets/Pescado.svg',
+
+	    iconSize:     [38, 95], // size of the icon
+	    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+	    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+	});
+
+	var carneAsadaIcon = L.icon({
+	    iconUrl: '../assets/CarneAsada.svg',
+
+	    iconSize:     [38, 95], // size of the icon
+	    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+	    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+	});
+
+	var baleadasIcon = L.icon({
+	    iconUrl: '../assets/Baleada.svg',
+
+	    iconSize:     [38, 95], // size of the icon
+	    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+	    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+	});
+
+	var chuletasIcon = L.icon({
+	    iconUrl: '../assets/Chuletas.svg',
+
+	    iconSize:     [38, 95], // size of the icon
+	    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+	    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+	});
+
+	var comidaChinaIcon = L.icon({
+	    iconUrl: '../assets/ComidaChina.svg',
+
+	    iconSize:     [38, 95], // size of the icon
+	    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+	    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+	});
+
+	var hamburguesasIcon = L.icon({
+	    iconUrl: '../assets/Hamburguesa.svg',
+
+	    iconSize:     [38, 95], // size of the icon
+	    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+	    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+	});
+
+	var hotdogsIcon = L.icon({
+	    iconUrl: '../assets/HotDog.svg',
+
+	    iconSize:     [38, 95], // size of the icon
+	    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+	    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+	});
+
+	var pizzaIcon = L.icon({
+	    iconUrl: '../assets/Pizza.svg',
+
+	    iconSize:     [38, 95], // size of the icon
+	    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+	    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+	});
+
+	var polloIcon = L.icon({
+	    iconUrl: '../assets/Pollo.svg',
+
+	    iconSize:     [38, 95], // size of the icon
+	    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+	    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+	});
+
+	var sopaIcon = L.icon({
+	    iconUrl: '../assets/Sopa.svg',
+
+	    iconSize:     [38, 95], // size of the icon
+	    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+	    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+	});
+
+	var ubicacionIcon = L.icon({
+	    iconUrl: '../assets/Ubicacion.svg',
+
+	    iconSize:     [38, 95], // size of the icon
+	    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+	    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+	});
+
+
 	// check whether browser supports geolocation api
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(positionSuccess, positionError, { enableHighAccuracy: true });
@@ -47,7 +152,7 @@ $(function() {
 		var acr = position.coords.accuracy;
 		// mark user's position
 		var userMarker = L.marker([lat, lng], {
-			icon: redIcon
+			icon: ubicacionIcon
 		});
 
 		// load leaflet map
@@ -78,6 +183,32 @@ $(function() {
 		setCatFoodCourts();
 		//aqui agregamos la caja para los filtros
 		L.control.layers(baseLayers,overlays).addTo(map);
+	}
+
+	function limpiarPanel() {
+		// body...
+	}
+
+	function cargarPanel() {
+		$("#mypanel").append("<p id='descripcion'>g</p><p id='puntos'>g</p><h3>Menu</h3>");
+		$("#mypanel").append("<ul data-role='listview' data-inset='true' data-theme='c' id='preciosLocales' class=''></ul>");
+		$("#mypanel").append("<a href='#mypanel' id='back' data-theme='a' data-role='button'  data-mini='true' data-corners='true' "+
+		"data-shadow='true' data-iconshadow='true' data-wrapperels='span'"+
+		" class='ui-btn ui-shadow ui-btn-corner-all ui-mini ui-btn-icon-left'>"+
+		"<span class='ui-btn-inner ui-btn-corner-all'>"+
+		"<span class='ui-btn-text'>Regresar</span>"+
+		"</span></a>");
+		$("#mypanel").append("<a href='#mypanel' id='like' data-theme='a'"+
+		" data-role='button'  data-mini='true' data-corners='true'"+
+		" data-shadow='true' data-iconshadow='true' data-wrapperels='span' "+
+		"class='ui-btn ui-shadow ui-btn-corner-all ui-mini ui-btn-icon-left'>"+
+		"<span class='ui-btn-inner ui-btn-corner-all'>"+
+		"<span class='ui-btn-text'>Dar Punto</span>"+
+		"</span></a>");
+	}
+
+	function cargarNoFoodCourt() {
+		$("#mypanel").append("<h2 id='nombreLocal'>Panel Header</h2>");
 	}
 
 	function setPanelNoFoodCourt(number){
@@ -124,6 +255,44 @@ $(function() {
 		});//$("#like").on('click'172.16.217.32
 	}
 
+	function cargarFoodCourt(data){
+		$("#mypanel").append("<div class='ui-field-contain'>"+
+		"<label for='select-native-1'>Puesto de Venta</label>"+
+		"<select name='select-native-1' id='foodcourt'>"+
+		"</select></div>");
+		/*
+		<option value='' selected='selected'>The 1st Option</option>
+		        <option value=''>The 2nd Option</option>
+		*/
+	}
+
+	function setPanelFoodCourt(number){
+		$.ajax("panel/"+vDocnum[number],
+	          {
+	              "method":"GET",
+	              "data":{},
+	              "dataType":"json",
+	              "success":function(jsonDoc,status,jqXHR){
+										$( "#nombreLocal" ).text(jsonDoc.restaurantes[0].properties.nombre);
+										$( "#descripcion" ).text(jsonDoc.restaurantes[0].properties.popupContent);
+										$( "#puntos" ).text("Likes dados: "+jsonDoc.restaurantes[0].properties.rating);
+										$("#preciosLocales li").remove();
+
+										for (i = 0; i < jsonDoc.restaurantes[0].properties.menu.length; i++) {
+											$("#preciosLocales").append("<li class='ui-li' data-theme='c'><span>"
+											+jsonDoc.restaurantes[0].properties.menu[i].nombreComida+" "
+											+jsonDoc.restaurantes[0].properties.menu[i].precio
+											 +"</span></li>");
+										}
+	              },
+	              "error":function(jqXHR,status, errorMsg){
+	                  console.log(errorMsg);
+	                  console.log("error");
+	              }
+	          }
+	  );//ajax
+	}
+
 	function setCatMariscos(){
 		$.ajax("mapa/CatMariscos",
 	          {
@@ -133,7 +302,7 @@ $(function() {
 	              "success":function(jsonDoc,status,jqXHR){
 										for (i = 0; i < jsonDoc.restaurantes.length; i++) {
 											var marker = L.marker([jsonDoc.restaurantes[i].geometry.coordinates[0],
-								        jsonDoc.restaurantes[i].geometry.coordinates[1]], { icon: yellowIcon }).addTo(mariscos);
+								        jsonDoc.restaurantes[i].geometry.coordinates[1]], { icon: mariscosIcon }).addTo(mariscos);
 								      marker.bindPopup(jsonDoc.restaurantes[i].properties.popupContent);
 
 											var cadena = jsonDoc.restaurantes[i].geometry.coordinates[0]+"_"+jsonDoc.restaurantes[i].geometry.coordinates[1];
@@ -167,7 +336,7 @@ $(function() {
 	              "success":function(jsonDoc,status,jqXHR){
 										for (i = 0; i < jsonDoc.restaurantes.length; i++) {
 											var marker = L.marker([jsonDoc.restaurantes[i].geometry.coordinates[0],
-								        jsonDoc.restaurantes[i].geometry.coordinates[1]], { icon: yellowIcon }).addTo(carneAsada);
+								        jsonDoc.restaurantes[i].geometry.coordinates[1]], { icon: carneAsadaIcon }).addTo(carneAsada);
 								      marker.bindPopup(jsonDoc.restaurantes[i].properties.popupContent);
 
 											var cadena = jsonDoc.restaurantes[i].geometry.coordinates[0]+"_"+jsonDoc.restaurantes[i].geometry.coordinates[1];
@@ -203,7 +372,7 @@ $(function() {
 	              "success":function(jsonDoc,status,jqXHR){
 										for (i = 0; i < jsonDoc.restaurantes.length; i++) {
 											var marker = L.marker([jsonDoc.restaurantes[i].geometry.coordinates[0],
-								        jsonDoc.restaurantes[i].geometry.coordinates[1]], { icon: yellowIcon }).addTo(carneAsada);
+								        jsonDoc.restaurantes[i].geometry.coordinates[1]], { icon: baleadasIcon }).addTo(baleadas);
 								      marker.bindPopup(jsonDoc.restaurantes[i].properties.popupContent);
 
 											var cadena = jsonDoc.restaurantes[i].geometry.coordinates[0]+"_"+jsonDoc.restaurantes[i].geometry.coordinates[1];
@@ -229,6 +398,251 @@ $(function() {
 	  );//ajax
 	}
 
+	function setCatChuletas() {
+		$.ajax("mapa/setCatChuletas",
+	          {
+	              "method":"GET",
+	              "data":{},
+	              "dataType":"json",
+	              "success":function(jsonDoc,status,jqXHR){
+										for (i = 0; i < jsonDoc.restaurantes.length; i++) {
+											var marker = L.marker([jsonDoc.restaurantes[i].geometry.coordinates[0],
+								        jsonDoc.restaurantes[i].geometry.coordinates[1]], { icon: chuletasIcon }).addTo(chuletas);
+								      marker.bindPopup(jsonDoc.restaurantes[i].properties.popupContent);
+
+											var cadena = jsonDoc.restaurantes[i].geometry.coordinates[0]+"_"+jsonDoc.restaurantes[i].geometry.coordinates[1];
+											cadena=cadena.replace(/\-|\.|\_/gi,"");
+											vDocnum[cadena]=jsonDoc.restaurantes[i].docnum;
+
+											marker.on('click', function(e) {
+												$( "#mypanel" ).panel( "open" , {} );
+
+												var cadena = e.latlng.lat+"_"+e.latlng.lng;
+												cadena=cadena.replace(/\-|\.|\_/gi,"");
+												setPanelNoFoodCourt(cadena);
+
+											});//marker.on click
+										}
+
+	              },
+	              "error":function(jqXHR,status, errorMsg){
+	                  console.log(errorMsg);
+	                  console.log("error");
+	              }
+	          }
+	  );//ajax
+	}
+
+	function setCatComidaChina() {
+		$.ajax("mapa/setCatComidaChina",
+	          {
+	              "method":"GET",
+	              "data":{},
+	              "dataType":"json",
+	              "success":function(jsonDoc,status,jqXHR){
+										for (i = 0; i < jsonDoc.restaurantes.length; i++) {
+											var marker = L.marker([jsonDoc.restaurantes[i].geometry.coordinates[0],
+								        jsonDoc.restaurantes[i].geometry.coordinates[1]], { icon: comidaChinaIcon }).addTo(comidaChina);
+								      marker.bindPopup(jsonDoc.restaurantes[i].properties.popupContent);
+
+											var cadena = jsonDoc.restaurantes[i].geometry.coordinates[0]+"_"+jsonDoc.restaurantes[i].geometry.coordinates[1];
+											cadena=cadena.replace(/\-|\.|\_/gi,"");
+											vDocnum[cadena]=jsonDoc.restaurantes[i].docnum;
+
+											marker.on('click', function(e) {
+												$( "#mypanel" ).panel( "open" , {} );
+
+												var cadena = e.latlng.lat+"_"+e.latlng.lng;
+												cadena=cadena.replace(/\-|\.|\_/gi,"");
+												setPanelNoFoodCourt(cadena);
+
+											});//marker.on click
+										}
+
+	              },
+	              "error":function(jqXHR,status, errorMsg){
+	                  console.log(errorMsg);
+	                  console.log("error");
+	              }
+	          }
+	  );//ajax
+	}
+
+	function setCatHamburguesa() {
+		$.ajax("mapa/setCatHamburguesa",
+	          {
+	              "method":"GET",
+	              "data":{},
+	              "dataType":"json",
+	              "success":function(jsonDoc,status,jqXHR){
+										for (i = 0; i < jsonDoc.restaurantes.length; i++) {
+											var marker = L.marker([jsonDoc.restaurantes[i].geometry.coordinates[0],
+								        jsonDoc.restaurantes[i].geometry.coordinates[1]], { icon: hamburguesasIcon }).addTo(hamburguesas);
+								      marker.bindPopup(jsonDoc.restaurantes[i].properties.popupContent);
+
+											var cadena = jsonDoc.restaurantes[i].geometry.coordinates[0]+"_"+jsonDoc.restaurantes[i].geometry.coordinates[1];
+											cadena=cadena.replace(/\-|\.|\_/gi,"");
+											vDocnum[cadena]=jsonDoc.restaurantes[i].docnum;
+
+											marker.on('click', function(e) {
+												$( "#mypanel" ).panel( "open" , {} );
+
+												var cadena = e.latlng.lat+"_"+e.latlng.lng;
+												cadena=cadena.replace(/\-|\.|\_/gi,"");
+												setPanelNoFoodCourt(cadena);
+
+											});//marker.on click
+										}
+
+	              },
+	              "error":function(jqXHR,status, errorMsg){
+	                  console.log(errorMsg);
+	                  console.log("error");
+	              }
+	          }
+	  );//ajax
+	}
+
+	function setCatHotdogs() {
+		$.ajax("mapa/setCatHotdogs",
+						{
+								"method":"GET",
+								"data":{},
+								"dataType":"json",
+								"success":function(jsonDoc,status,jqXHR){
+										for (i = 0; i < jsonDoc.restaurantes.length; i++) {
+											var marker = L.marker([jsonDoc.restaurantes[i].geometry.coordinates[0],
+												jsonDoc.restaurantes[i].geometry.coordinates[1]], { icon: hotdogsIcon }).addTo(hotdogs);
+											marker.bindPopup(jsonDoc.restaurantes[i].properties.popupContent);
+
+											var cadena = jsonDoc.restaurantes[i].geometry.coordinates[0]+"_"+jsonDoc.restaurantes[i].geometry.coordinates[1];
+											cadena=cadena.replace(/\-|\.|\_/gi,"");
+											vDocnum[cadena]=jsonDoc.restaurantes[i].docnum;
+
+											marker.on('click', function(e) {
+												$( "#mypanel" ).panel( "open" , {} );
+
+												var cadena = e.latlng.lat+"_"+e.latlng.lng;
+												cadena=cadena.replace(/\-|\.|\_/gi,"");
+												setPanelNoFoodCourt(cadena);
+
+											});//marker.on click
+										}
+
+								},
+								"error":function(jqXHR,status, errorMsg){
+										console.log(errorMsg);
+										console.log("error");
+								}
+						}
+		);//ajax
+	}
+
+	function setCatPizza() {
+		$.ajax("mapa/setCatPizza",
+						{
+								"method":"GET",
+								"data":{},
+								"dataType":"json",
+								"success":function(jsonDoc,status,jqXHR){
+										for (i = 0; i < jsonDoc.restaurantes.length; i++) {
+											var marker = L.marker([jsonDoc.restaurantes[i].geometry.coordinates[0],
+												jsonDoc.restaurantes[i].geometry.coordinates[1]], { icon: pizzaIcon }).addTo(pizza);
+											marker.bindPopup(jsonDoc.restaurantes[i].properties.popupContent);
+
+											var cadena = jsonDoc.restaurantes[i].geometry.coordinates[0]+"_"+jsonDoc.restaurantes[i].geometry.coordinates[1];
+											cadena=cadena.replace(/\-|\.|\_/gi,"");
+											vDocnum[cadena]=jsonDoc.restaurantes[i].docnum;
+
+											marker.on('click', function(e) {
+												$( "#mypanel" ).panel( "open" , {} );
+
+												var cadena = e.latlng.lat+"_"+e.latlng.lng;
+												cadena=cadena.replace(/\-|\.|\_/gi,"");
+												setPanelNoFoodCourt(cadena);
+
+											});//marker.on click
+										}
+
+								},
+								"error":function(jqXHR,status, errorMsg){
+										console.log(errorMsg);
+										console.log("error");
+								}
+						}
+		);//ajax
+	}
+
+	function setCatPollo() {
+		$.ajax("mapa/setCatPollo",
+						{
+								"method":"GET",
+								"data":{},
+								"dataType":"json",
+								"success":function(jsonDoc,status,jqXHR){
+										for (i = 0; i < jsonDoc.restaurantes.length; i++) {
+											var marker = L.marker([jsonDoc.restaurantes[i].geometry.coordinates[0],
+												jsonDoc.restaurantes[i].geometry.coordinates[1]], { icon: polloIcon }).addTo(pollo);
+											marker.bindPopup(jsonDoc.restaurantes[i].properties.popupContent);
+
+											var cadena = jsonDoc.restaurantes[i].geometry.coordinates[0]+"_"+jsonDoc.restaurantes[i].geometry.coordinates[1];
+											cadena=cadena.replace(/\-|\.|\_/gi,"");
+											vDocnum[cadena]=jsonDoc.restaurantes[i].docnum;
+
+											marker.on('click', function(e) {
+												$( "#mypanel" ).panel( "open" , {} );
+
+												var cadena = e.latlng.lat+"_"+e.latlng.lng;
+												cadena=cadena.replace(/\-|\.|\_/gi,"");
+												setPanelNoFoodCourt(cadena);
+
+											});//marker.on click
+										}
+
+								},
+								"error":function(jqXHR,status, errorMsg){
+										console.log(errorMsg);
+										console.log("error");
+								}
+						}
+		);//ajax
+	}
+
+	function setCatSopa() {
+		$.ajax("mapa/setCatSopa",
+						{
+								"method":"GET",
+								"data":{},
+								"dataType":"json",
+								"success":function(jsonDoc,status,jqXHR){
+										for (i = 0; i < jsonDoc.restaurantes.length; i++) {
+											var marker = L.marker([jsonDoc.restaurantes[i].geometry.coordinates[0],
+												jsonDoc.restaurantes[i].geometry.coordinates[1]], { icon: sopaIcon }).addTo(sopa);
+											marker.bindPopup(jsonDoc.restaurantes[i].properties.popupContent);
+
+											var cadena = jsonDoc.restaurantes[i].geometry.coordinates[0]+"_"+jsonDoc.restaurantes[i].geometry.coordinates[1];
+											cadena=cadena.replace(/\-|\.|\_/gi,"");
+											vDocnum[cadena]=jsonDoc.restaurantes[i].docnum;
+
+											marker.on('click', function(e) {
+												$( "#mypanel" ).panel( "open" , {} );
+
+												var cadena = e.latlng.lat+"_"+e.latlng.lng;
+												cadena=cadena.replace(/\-|\.|\_/gi,"");
+												setPanelNoFoodCourt(cadena);
+
+											});//marker.on click
+										}
+
+								},
+								"error":function(jqXHR,status, errorMsg){
+										console.log(errorMsg);
+										console.log("error");
+								}
+						}
+		);//ajax
+	}
+
 	function setCatFoodCourts() {
 		$.ajax("mapa/CatFoodCourt",
 	          {
@@ -238,7 +652,7 @@ $(function() {
 	              "success":function(jsonDoc,status,jqXHR){
 										for (i = 0; i < jsonDoc.restaurantes.length; i++) {
 											var marker = L.marker([jsonDoc.restaurantes[i].geometry.coordinates[0],
-								        jsonDoc.restaurantes[i].geometry.coordinates[1]], { icon: yellowIcon }).addTo(carneAsada);
+								        jsonDoc.restaurantes[i].geometry.coordinates[1]], { icon: yellowIcon }).addTo(foodcourt);
 								      marker.bindPopup(jsonDoc.restaurantes[i].properties.popupContent);
 										}
 
@@ -262,7 +676,8 @@ $(function() {
 	}
 
 	function showError(msg) {
-		info.addClass("error").text(msg);
+		//info.addClass("error").text(msg);
+		alert(msg);
 	}
 });
 
@@ -270,92 +685,3 @@ $(function() {
 /*Este es su especialidad y los tipos son:
         mariscos,carneAsada,baleadas,
         chuletas,comidaChina,hamburguesas,hotdogs,pizza, pollo, sopa*/
-
-//Agregar iconos
-var mariscos = L.icon({
-    iconUrl: '../assets/Pescado.svg',
-
-    iconSize:     [38, 95], // size of the icon
-    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-});
-
-var carneAsada = L.icon({
-    iconUrl: '../assets/Carne Asada.svg',
-
-    iconSize:     [38, 95], // size of the icon
-    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-});
-
-var baleadas = L.icon({
-    iconUrl: '../assets/Baleada.svg',
-
-    iconSize:     [38, 95], // size of the icon
-    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-});
-
-var chuletas = L.icon({
-    iconUrl: '../assets/Chuletas.svg',
-
-    iconSize:     [38, 95], // size of the icon
-    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-});
-
-var comidaChina = L.icon({
-    iconUrl: '../assets/Comida China.svg',
-
-    iconSize:     [38, 95], // size of the icon
-    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-});
-
-var hamburguesas = L.icon({
-    iconUrl: '../assets/Hamburguesa.svg',
-
-    iconSize:     [38, 95], // size of the icon
-    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-});
-
-var hotdogs = L.icon({
-    iconUrl: '../assets/Hot Dog.svg',
-
-    iconSize:     [38, 95], // size of the icon
-    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-});
-
-var pizza = L.icon({
-    iconUrl: '../assets/Pizza.svg',
-
-    iconSize:     [38, 95], // size of the icon
-    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-});
-
-var pollo = L.icon({
-    iconUrl: '../assets/Pollo.svg',
-
-    iconSize:     [38, 95], // size of the icon
-    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-});
-
-var sopa = L.icon({
-    iconUrl: '../assets/Sopa.svg',
-
-    iconSize:     [38, 95], // size of the icon
-    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-});
-
-var ubicacion = L.icon({
-    iconUrl: '../assets/ubicacion.svg',
-
-    iconSize:     [38, 95], // size of the icon
-    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-});
