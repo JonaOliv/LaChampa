@@ -11,9 +11,9 @@ Para iniciarlo debes escribir: ```node ./bin/www```
 
 Libreria open-source mobile-friendly de mapas interactivos usada: http://leafletjs.com/
 
-Alumnos:                  Cuenta:
-Jonathan Benjamin Oliva   0801199408358
-Juan Carlos Izaguirre     0801199308222
-Jose Leonardo Deras       1622199800173
-Juan Francisco Mendez     0810199400083
-Ramon Enrique Andrade     0801199213848
+Alumnos:
+* Jonathan Benjamin Oliva   0801199408358
+* Juan Carlos Izaguirre     0801199308222
+* Jose Leonardo Deras       1622199800173
+* Juan Francisco Mendez     0810199400083
+* Ramon Enrique Andrade     0801199213848
